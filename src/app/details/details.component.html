@@ -1,0 +1,257 @@
+<div class="details">
+
+
+
+    <div class="form">
+        <form class="row " style="border: 1px solid black;border-radius: 50px;" [formGroup]="detailsForm"
+            (ngSubmit)="submit()">
+            <h2 class="pt-3 text-center">Personal Details</h2>
+            <!-- name -->
+            <div class="m-2 row d-flex justify-content-center ">
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-5 ">
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name"
+                        formControlName="name">
+                    <div *ngIf="isFieldValid(detailsForm,'name')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'name','required')">This is required</p>
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'name','minlength')">Please enter a
+                            minimum of 3 characters</p>
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'name','pattern')">Name must contain
+                            alphabets only</p>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <!-- email -->
+            <div class="m-2 row d-flex justify-content-center ">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-5">
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                        formControlName="email">
+                    <div *ngIf="isFieldValid(detailsForm,'email')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'email','required')">This is required
+                        </p>
+
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'email','pattern')">Please enter a valid
+                            email</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- mobile no -->
+            <div class="m-2 row d-flex justify-content-center">
+                <label for="mob" class="col-sm-2 col-form-label">Phn No</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" id="mob" placeholder="Enter your mobile no"
+                        formControlName="mobileNo">
+                    <div *ngIf="isFieldValid(detailsForm,'mobileNo')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'mobileNo','required')">This is required
+                        </p>
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'mobileNo','pattern')">Mobile number
+                            must contain 10 digits only</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dob -->
+            <div class="m-2 row d-flex justify-content-center ">
+                <label for="dob" class="col-sm-2 col-form-label">DOB</label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" id="dob" formControlName="dob">
+                    <div *ngIf="isFieldValid(detailsForm,'dob')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'dob','required')">This is required</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- gender -->
+            <div class="m-2 row d-flex justify-content-center">
+                <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-sm-5 d-flex justify-content-center p-2">
+
+                    <input class="form-check-input m-1" type="radio" value="male" name="gender" id="gender" formControlName="gender">
+                    <label class="form-check-label " for="gender">
+                        Male
+                    </label>
+
+                    <input class="form-check-input m-1" type="radio" value="female" name="gender" id="gender" formControlName="gender">
+                    <label class="form-check-label" for="gender">
+                        Female
+                    </label>
+
+                    <input class="form-check-input m-1" type="radio" value="others" name="gender" id="gender" formControlName="gender">
+                    <label class="form-check-label" for="gender">
+                        Others
+                    </label>
+                </div>
+               
+            </div>
+
+            <!-- Qualification -->
+            <div class="m-2 row  d-flex justify-content-center">
+                <label for="qualification" class="col-sm-2 col-form-label">Qualification</label>
+                <div class="col-sm-5">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="qualification"
+                        formControlName="qualification">
+                        <option selected>Choose your qualification</option>
+                        <option value="B.E/B.Tech">B.E/B.Tech</option>
+                        <option value="MCA">MCA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="M.E/M.Tech">M.E/M.Tech</option>
+                    </select>
+                    <div *ngIf="isFieldValid(detailsForm,'qualification')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'qualification','required')">This is
+                            required</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- address -->
+            <div id="address" class="address m-1  " formArrayName="address">
+
+               
+
+                <ng-container *ngFor="let control of addressesasformarray.controls;let i=index">
+
+                    <p class="text-center">Address- {{control.get('id')?.value}}</p>
+                    <div [formGroupName]="i">
+                   
+
+
+
+                    <!-- city -->
+                    <div class="m-2 row  d-flex justify-content-center ">
+                        <label for="city" class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="city" formControlName="city">
+                            <div *ngIf="isFieldValid(control,'city')">
+                                <p class="error" *ngIf="getFieldByErrorType(control,'city','required')">This is
+                                    required</p>
+        
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- state -->
+                    <div class="m-2 row  d-flex justify-content-center ">
+                        <label for="state" class="col-sm-2 col-form-label">State</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="state" formControlName="state">
+                            <div *ngIf="isFieldValid(control,'state')">
+                                <p class="error" *ngIf="getFieldByErrorType(control,'state','required')">This is
+                                    required</p>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- pincode -->
+                    <div class="m-2 row  d-flex justify-content-center ">
+                        <label for="pincode" class="col-sm-2 col-form-label">Pincode</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" id="pincode" formControlName="pincode">
+                            <div *ngIf="isFieldValid(control,'pincode')">
+                                <p class="error" *ngIf="getFieldByErrorType(control,'pincode','required')">This is
+                                    required</p>
+                                <p class="error" *ngIf="getFieldByErrorType(control,'pincode','pattern')">pincode must be 6 digits</p>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-2 row  d-flex justify-content-center ">
+
+                        <div class="col-sm-7 d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger btn-sm " (click)="removeAddress(i)">Remove Address</button>
+                        </div>
+                    </div>
+                </div>
+
+                   
+                    
+                    </ng-container>
+
+          
+
+                        <div class=" d-flex justify-content-center">
+                            <button type="button" class="btn btn-info btn-sm" (click)="addAddress()">Add Address</button>
+                        </div>
+                    
+            </div>
+
+
+            <!-- languages known -->
+            <!-- <div class="m-2 row  d-flex justify-content-center ">
+                <label class="col-sm-2 col-form-label">Languages Known</label>
+                <div class="col-sm-5 d-flex justify-content-center  ">
+                    <div class="form-check p-2 m-2">
+                        <input class="form-check-input" type="checkbox" value="English" id="flexCheckDefault"  formControlName="languagesKnown">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            English
+                        </label>
+                    </div>
+                    <div class="form-check p-2 m-2">
+                        <input class="form-check-input" type="checkbox" value="Tamil" id="flexCheckChecked" formControlName="languagesKnown">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Tamil
+                        </label>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- about -->
+            <div class="m-2 row  d-flex justify-content-center ">
+                <label for="about" class="col-sm-2 col-form-label">Tell about yourself</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" placeholder="" id="about" formControlName="about"></textarea>
+
+                </div>
+            </div>
+
+            <!-- resume -->
+            <div class="m-2 row  d-flex justify-content-center ">
+                <label for="resume" class="col-sm-2 col-form-label">Upload your resume</label>
+                <div class="col-sm-5">
+
+                    <input class="form-control form-control-sm" id="resume" type="file" formControlName="uploadResume">
+                    <div *ngIf="isFieldValid(detailsForm,'uploadResume')">
+                        <p class="error" *ngIf="getFieldByErrorType(detailsForm,'uploadResume','required')">This is
+                            required</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- submit button -->
+            <div class="m-2 row  d-flex justify-content-center ">
+
+                <div class="col-sm-2 ">
+                    <button type="submit"[disabled]="detailsForm.invalid" class="btn btn-success btn-sm">Submit</button>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </form>
+    </div>
+
+</div>
